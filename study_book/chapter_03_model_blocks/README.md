@@ -56,7 +56,7 @@ linear map.
 ### RMSNorm
 
 $$
-\operatorname{RMSNorm}(x) =
+\mathrm{RMSNorm}(x) =
 \frac{x}{\sqrt{\frac1d \sum_i x_i^2 + \varepsilon}} \odot g + b.
 $$
 
@@ -92,7 +92,7 @@ For input `x`, up-projection `W_up ∈ R^{2F×d}`, down-projection
 $$
 \begin{pmatrix} g \\ u \end{pmatrix} = W_{up} x,
 \qquad
-h = \operatorname{act}(g) \odot u,
+h = \mathrm{act}(g) \odot u,
 \qquad
 y = W_{down} h.
 $$
@@ -100,13 +100,13 @@ $$
 The activation is usually SiLU:
 
 $$
-\operatorname{silu}(z) = z\,\sigma(z),
+\mathrm{silu}(z) = z\,\sigma(z),
 $$
 
 or GELU (tanh approximation):
 
 $$
-\operatorname{GELU}(z) \approx \frac12 z\left(1 + \tanh\!\left(\sqrt{\frac2\pi}(z + 0.044715 z^3)\right)\right).
+\mathrm{GELU}(z) \approx \frac12 z\left(1 + \tanh\!\left(\sqrt{\frac2\pi}(z + 0.044715 z^3)\right)\right).
 $$
 
 Optional clipping applies `clip(g, -c, c)` before the activation and
@@ -197,8 +197,8 @@ with shapes `Q:[T,H,d_h]`, `K,V:[T,H_kv,d_h]`. Optional QK RMSNorm is applied pe
 head before RoPE:
 
 $$
-Q \leftarrow \operatorname{RMSNorm}_{d_h}(Q), \qquad
-K \leftarrow \operatorname{RMSNorm}_{d_h}(K).
+Q \leftarrow \mathrm{RMSNorm}_{d_h}(Q), \qquad
+K \leftarrow \mathrm{RMSNorm}_{d_h}(K).
 $$
 
 ### Scores
@@ -223,7 +223,7 @@ the ancestor mask from chapter 04.
 ### Softmax and output
 
 $$
-P = \operatorname{softmax}(S + M),
+P = \mathrm{softmax}(S + M),
 \qquad
 O = PV.
 $$
@@ -234,7 +234,7 @@ A per-head sink logit `s_h` is appended as an extra column with value `0`:
 
 $$
 S' = [S,\; s_h], \qquad
-P = \operatorname{softmax}(S'), \qquad
+P = \mathrm{softmax}(S'), \qquad
 O = P_{:,:T} V.
 $$
 
@@ -281,7 +281,7 @@ $$
 The mixer is
 
 $$
-\text{out} = W_O\left(\operatorname{silu}(G) \odot \operatorname{Conv}(V)\right),
+\text{out} = W_O\left(\mathrm{silu}(G) \odot \mathrm{Conv}(V)\right),
 $$
 
 where `(G,V)` come from a fused input projection. Memory state:
@@ -335,7 +335,7 @@ algorithm that processes blocks in parallel and a special tree-verify variant.
 The layer's mixer is one of the three blocks above. The interface is
 
 $$
-\operatorname{Mixer}: (X, \text{positions}, \text{state}, M) \mapsto Y.
+\mathrm{Mixer}: (X, \text{positions}, \text{state}, M) \mapsto Y.
 $$
 
 `mixer_speculation_supported` is `True` for attention and `False` for the
@@ -350,11 +350,11 @@ With `x` the input and `s` the residual stream:
 
 $$
 \begin{aligned}
-h &= \operatorname{Norm}(s + x) && \text{(Copy on layer 0, Add later)}\\
-a &= \operatorname{Mixer}(h)\\
+h &= \mathrm{Norm}(s + x) && \text{(Copy on layer 0, Add later)}\\
+a &= \mathrm{Mixer}(h)\\
 s &\leftarrow s + a\\
-h &= \operatorname{Norm}(s)\\
-m &= \operatorname{MLP}(h)\\
+h &= \mathrm{Norm}(s)\\
+m &= \mathrm{MLP}(h)\\
 s &\leftarrow s + m\\
 \text{return } m.
 \end{aligned}
@@ -364,7 +364,7 @@ The layer returns only `m`; the caller keeps `s`. The next layer's first
 normalization performs the `s + m` step. At the very end, the output norm does
 
 $$
-y = \operatorname{Norm}(s + m_{\text{last}}).
+y = \mathrm{Norm}(s + m_{\text{last}}).
 $$
 
 Optional `post_mixer_norm` / `post_mlp_norm` insert an extra normalization
@@ -411,7 +411,7 @@ context length by the number of accepted rows.
 Only the requested rows are normalized and projected to logits:
 
 $$
-z_{t} = W_{\text{readout}}\operatorname{Norm}(s_t + m_t).
+z_{t} = W_{\text{readout}}\mathrm{Norm}(s_t + m_t).
 $$
 
 ---

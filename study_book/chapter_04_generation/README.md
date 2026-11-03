@@ -58,7 +58,7 @@ $$
 M_{i,j} =
 \begin{cases}
 1 & j < L,\\
-1 & j \ge L \text{ and } (j-L) \in \operatorname{Anc}(i),\\
+1 & j \ge L \text{ and } (j-L) \in \mathrm{Anc}(i),\\
 0 & \text{otherwise}.
 \end{cases}
 $$
@@ -103,7 +103,7 @@ $$
 Let the filtered distribution be `p̃`. Sampling draws
 
 $$
-x \sim \operatorname{Categorical}(\tilde p).
+x \sim \mathrm{Categorical}(\tilde p).
 $$
 
 ### Determinism
@@ -135,7 +135,7 @@ Let `h_t^{(i)}` be the target residual feature at layer `i ∈ target_layer_ids`
 Concatenate them and project:
 
 $$
-u_t = W_{\text{feat}}\,\operatorname{concat}_i(h_t^{(i)}) \in \mathbb{R}^{d}.
+u_t = W_{\text{feat}}\,\mathrm{concat}_i(h_t^{(i)}) \in \mathbb{R}^{d}.
 $$
 
 The draft input is the projected feature plus a learned mask token `m`:
@@ -151,15 +151,15 @@ A small causal transformer processes the block:
 $$
 H^{(0)} = \begin{pmatrix} u_t + E[m] \\ \vdots \\ u_t + E[m] \end{pmatrix},
 \qquad
-H^{(\ell+1)} = \operatorname{Layer}^{(\ell)}(H^{(\ell)}).
+H^{(\ell+1)} = \mathrm{Layer}^{(\ell)}(H^{(\ell)}).
 $$
 
 The output logits are
 
 $$
-z_j = W_{\text{readout}}\operatorname{Norm}(H^{(L)}_j),
+z_j = W_{\text{readout}}\mathrm{Norm}(H^{(L)}_j),
 \qquad
-q_j = \operatorname{softmax}(z_j).
+q_j = \mathrm{softmax}(z_j).
 $$
 
 The draft is cheap because it is shallow, has a small `d`, and runs only `B`
@@ -199,7 +199,7 @@ At each round `r = 1 … R`, for every frontier node `u` keep the top-`k` tokens
 from the draft logits at depth `r`:
 
 $$
-\mathcal{C}_r = \bigcup_{u \in \text{frontier}} \operatorname{TopK}\!\left(\log q(\cdot \mid u), k\right).
+\mathcal{C}_r = \bigcup_{u \in \text{frontier}} \mathrm{TopK}\!\left(\log q(\cdot \mid u), k\right).
 $$
 
 Then keep the `E` highest-scoring candidates (`expand_per_round`) and add them

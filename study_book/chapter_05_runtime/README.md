@@ -20,13 +20,13 @@ with `256 = EOS` and `257 = mask/pad`. The vocabulary is `V = 258`.
 Encoding is
 
 $$
-\operatorname{encode}(s) = [\,b_1, b_2, \dots, b_n\,], \qquad s = \text{UTF-8 bytes}.
+\mathrm{encode}(s) = [\,b_1, b_2, \dots, b_n\,], \qquad s = \text{UTF-8 bytes}.
 $$
 
 Decoding reverses the map and ignores special ids:
 
 $$
-\operatorname{decode}([i_1,\dots,i_n]) = \text{UTF-8}([i_1,\dots,i_n]).
+\mathrm{decode}([i_1,\dots,i_n]) = \text{UTF-8}([i_1,\dots,i_n]).
 $$
 
 A chat template is a deterministic string concatenation:
@@ -45,21 +45,21 @@ maths is the same: text → ids → model → ids → text.
 The decoder is
 
 $$
-H_0 = \operatorname{Embed}(x),
+H_0 = \mathrm{Embed}(x),
 $$
 
 $$
-H_{\ell+1} = \operatorname{Layer}_\ell(H_\ell), \qquad \ell=0\dots L-1,
+H_{\ell+1} = \mathrm{Layer}_\ell(H_\ell), \qquad \ell=0\dots L-1,
 $$
 
 $$
-z_t = W_{\text{readout}}\operatorname{Norm}(H_{L,t}).
+z_t = W_{\text{readout}}\mathrm{Norm}(H_{L,t}).
 $$
 
 If the readout is tied, `W_readout = E^T`, so
 
 $$
-z_t = E^\top \operatorname{Norm}(H_{L,t}),
+z_t = E^\top \mathrm{Norm}(H_{L,t}),
 $$
 
 which reuses the embedding matrix and saves `V·d` parameters.
@@ -69,7 +69,7 @@ which reuses the embedding matrix and saves `V·d` parameters.
 The decoder can compute logits for only the last `k` positions:
 
 $$
-z_{T-k:T} = W_{\text{readout}}\operatorname{Norm}(H_{L,T-k:T}).
+z_{T-k:T} = W_{\text{readout}}\mathrm{Norm}(H_{L,T-k:T}).
 $$
 
 This is what the prefill does: it only needs the last token's logits to start
@@ -85,8 +85,8 @@ when needed.
 Given prompt `x_1 … x_L`:
 
 $$
-H = \operatorname{Decoder}(x_{1:L}), \qquad
-x_{L+1} \sim \operatorname{softmax}(z_L).
+H = \mathrm{Decoder}(x_{1:L}), \qquad
+x_{L+1} \sim \mathrm{softmax}(z_L).
 $$
 
 The KV cache is filled with the prompt rows. The cache length becomes `L`.
@@ -96,9 +96,9 @@ The KV cache is filled with the prompt rows. The cache length becomes `L`.
 At each step, the current token `x_t` is appended:
 
 $$
-z_t = \operatorname{Decoder}(x_t \mid \text{cache}),
+z_t = \mathrm{Decoder}(x_t \mid \text{cache}),
 \qquad
-x_{t+1} \sim \operatorname{softmax}(z_t).
+x_{t+1} \sim \mathrm{softmax}(z_t).
 $$
 
 The cache grows by one row. Cost per token is dominated by reading all weights
@@ -121,7 +121,7 @@ target logits `z_i` for every node.
 Starting at the root, sample a target token
 
 $$
-\hat x_i \sim \operatorname{softmax}(z_i).
+\hat x_i \sim \mathrm{softmax}(z_i).
 $$
 
 If a child of node `i` has token `\hat x_i`, accept that child and continue.

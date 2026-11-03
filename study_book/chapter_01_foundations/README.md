@@ -34,7 +34,7 @@ For a vector/row `x`, choose
 
 $$
 s = \frac{\max_i |x_i|}{127}, \qquad
-q_i = \operatorname{clip}\!\left(\operatorname{round}\!\left(\frac{x_i}{s}\right), -127, 127\right),
+q_i = \mathrm{clip}\!\left(\mathrm{round}\!\left(\frac{x_i}{s}\right), -127, 127\right),
 \qquad
 \hat{x}_i = s\,q_i.
 $$
@@ -122,7 +122,7 @@ $$
 With scale vector `g`, bias `b`, and epsilon `ε`:
 
 $$
-\operatorname{RMSNorm}(x) =
+\mathrm{RMSNorm}(x) =
 \frac{x}{\sqrt{\frac{1}{d}\sum_{i=1}^d x_i^2 + \varepsilon}} \odot g + b.
 $$
 
@@ -133,20 +133,20 @@ The sum of squares is computed in float32 even when the input is BF16, because
 ### Softmax and log-softmax
 
 $$
-\operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}}.
+\mathrm{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}}.
 $$
 
 The numerically stable implementation is
 
 $$
-\operatorname{softmax}(z)_i = \frac{e^{z_i - m}}{\sum_j e^{z_j - m}}, \qquad m = \max_j z_j.
+\mathrm{softmax}(z)_i = \frac{e^{z_i - m}}{\sum_j e^{z_j - m}}, \qquad m = \max_j z_j.
 $$
 
 The subtraction cancels in the ratio, so it changes nothing mathematically but
 prevents `exp` overflow. Log-softmax is
 
 $$
-\log \operatorname{softmax}(z)_i = z_i - m - \log\sum_j e^{z_j - m}.
+\log \mathrm{softmax}(z)_i = z_i - m - \log\sum_j e^{z_j - m}.
 $$
 
 ### RoPE (rotary position embedding)
@@ -178,8 +178,8 @@ so the dot product depends only on the **relative** offset `q-p`.
 ### Scaled dot-product attention
 
 $$
-\operatorname{Attn}(Q,K,V) =
-\operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_h}} + M\right)V,
+\mathrm{Attn}(Q,K,V) =
+\mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_h}} + M\right)V,
 $$
 
 where `M` is `0` for allowed keys and `-∞` for masked keys. The `1/√d_h` factor
@@ -238,7 +238,7 @@ The randomized Hadamard transform (RHT) multiplies by a random sign diagonal `D`
 first:
 
 $$
-\operatorname{RHT}(x) = \frac{1}{\sqrt n} H D x.
+\mathrm{RHT}(x) = \frac{1}{\sqrt n} H D x.
 $$
 
 `D` makes the transform incoherent: energy is spread across coordinates, so

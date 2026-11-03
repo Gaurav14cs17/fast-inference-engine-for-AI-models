@@ -20,7 +20,7 @@ It maps `alias` back to the number of the file that defines it (for example
 `dtypes → 01`, `attention → 14`), then checks
 
 $$
-\forall (u \to v):\quad \operatorname{num}(u) < \operatorname{num}(v).
+\forall (u \to v):\quad \mathrm{num}(u) < \mathrm{num}(v).
 $$
 
 ### Algorithm
@@ -50,9 +50,9 @@ Runs a tiny random model end-to-end. It demonstrates four things.
 ### 1. Forward pass and sampling
 
 $$
-H_0 = \operatorname{Embed}(x), \qquad
-H_{\ell+1} = \operatorname{Layer}_\ell(H_\ell), \qquad
-z = W_{\text{readout}}\operatorname{Norm}(H_L).
+H_0 = \mathrm{Embed}(x), \qquad
+H_{\ell+1} = \mathrm{Layer}_\ell(H_\ell), \qquad
+z = W_{\text{readout}}\mathrm{Norm}(H_L).
 $$
 
 The script samples from `z` with the greedy sampler and prints the generated

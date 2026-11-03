@@ -40,7 +40,7 @@ For a group of `g` weights `x_1 … x_g`, with `b` bits and `q_max = 2^{b-1}-1`:
 $$
 s = \frac{\max_i |x_i|}{q_{\max}},
 \qquad
-q_i = \operatorname{clip}\!\left(\operatorname{round}\!\left(\frac{x_i}{s}\right), -q_{\max}, q_{\max}\right),
+q_i = \mathrm{clip}\!\left(\mathrm{round}\!\left(\frac{x_i}{s}\right), -q_{\max}, q_{\max}\right),
 \qquad
 \hat{x}_i = s q_i.
 $$
@@ -87,7 +87,7 @@ block quantization (Q4_K, etc.) works.
 If the rounding error is approximately uniform on `[-s/2, s/2]`, its variance is
 
 $$
-\operatorname{Var}(e) = \frac{s^2}{12}.
+\mathrm{Var}(e) = \frac{s^2}{12}.
 $$
 
 With `s ∝ max|x|/q_max`, increasing bits by 1 halves `s`, so the error variance

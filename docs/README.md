@@ -26,11 +26,11 @@ files.
 ## Core operators
 
 $$
-\operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}},
+\mathrm{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}},
 \qquad
 \sigma(z) = \frac{1}{1+e^{-z}},
 \qquad
-\operatorname{silu}(z) = z\,\sigma(z).
+\mathrm{silu}(z) = z\,\sigma(z).
 $$
 
 Elementwise product is `⊙`. L2 norm is `‖x‖₂ = sqrt(Σ x_i²)`.
@@ -48,7 +48,7 @@ A topological order exists iff the graph has no directed cycle. The loader
 executes files in numeric order, and `tools/check_dag.py` tests the condition
 
 $$
-\forall (u \to v):\quad \operatorname{num}(u) < \operatorname{num}(v).
+\forall (u \to v):\quad \mathrm{num}(u) < \mathrm{num}(v).
 $$
 
 ## Complexity summary

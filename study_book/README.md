@@ -29,9 +29,9 @@ For layer `ℓ = 0 … L-1`, with pre-norm residuals:
 
 $$
 \begin{aligned}
-A^{(\ell)} &= \operatorname{Mixer}^{(\ell)}\!\left(\operatorname{Norm}(H^{(\ell)})\right),\\
+A^{(\ell)} &= \mathrm{Mixer}^{(\ell)}\!\left(\mathrm{Norm}(H^{(\ell)})\right),\\
 H^{(\ell+\frac12)} &= H^{(\ell)} + A^{(\ell)},\\
-M^{(\ell)} &= \operatorname{MLP}^{(\ell)}\!\left(\operatorname{Norm}(H^{(\ell+\frac12)})\right),\\
+M^{(\ell)} &= \mathrm{MLP}^{(\ell)}\!\left(\mathrm{Norm}(H^{(\ell+\frac12)})\right),\\
 H^{(\ell+1)} &= H^{(\ell+\frac12)} + M^{(\ell)}.
 \end{aligned}
 $$
@@ -39,8 +39,8 @@ $$
 The final logits are
 
 $$
-z_t = W_{\text{readout}}\,\operatorname{Norm}(H^{(L)}_t), \qquad
-p(x_{t+1}=i \mid x_{\le t}) = \operatorname{softmax}(z_t)_i.
+z_t = W_{\text{readout}}\,\mathrm{Norm}(H^{(L)}_t), \qquad
+p(x_{t+1}=i \mid x_{\le t}) = \mathrm{softmax}(z_t)_i.
 $$
 
 In the Python code the residual stream lives in `shortcut`; a layer returns only
