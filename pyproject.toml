@@ -13,6 +13,12 @@ dependencies = ["numpy>=1.26"]
 [project.optional-dependencies]
 safetensors = ["safetensors>=0.4"]
 
+[project.urls]
+Repository = "https://github.com/Gaurav14cs17/fast-inference-engine-for-AI-models"
+Upstream = "https://github.com/trymirai/uzu"
+Documentation = "https://docs.trymirai.com"
+"Model export (lalamo)" = "https://github.com/trymirai/lalamo"
+
 [tool.setuptools.packages.find]
 include = ["study_book*"]
 

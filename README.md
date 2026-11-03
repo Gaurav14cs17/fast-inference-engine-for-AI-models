@@ -1,8 +1,11 @@
 # fast-inference-engine-for-AI-models
 
-A compact NumPy reimplementation of the **fast-inference-engine-for-AI-models** inference engine architecture,
+A compact NumPy reimplementation of the **uzu** inference engine architecture,
 organized as a numbered study book. It is meant for studying the code, not for
 production inference.
+
+> Reference: this project is a study port of [uzu](https://github.com/trymirai/uzu),
+> a high-performance inference engine for AI models.
 
 The real engine is Rust + hand-written Metal/Slang kernels. This port keeps the
 same structure (buffers, backend, linear, attention, KV cache, DFlash, Weaver,
@@ -11,9 +14,10 @@ stream, engine) and replaces the GPU kernels with readable NumPy functions.
 ## Study-book layout
 
 ```text
-python_study/
+fast-inference-engine-for-AI-models/
 ├── pyproject.toml
 ├── README.md
+├── LICENSE
 ├── study_book/
 │   ├── __init__.py                      # loads chapters in DAG order
 │   ├── _loader.py                       # 01_dtypes.py -> chapter_01_foundations.dtypes
@@ -60,7 +64,8 @@ python_study/
 │   ├── check_dag.py                     # imports may only go forward
 │   └── run_demo.py                      # tiny random model + speculation demo
 └── docs/
-    └── 00_DAG.md                        # full order + Rust source mapping
+    ├── 00_DAG.md                        # full order + Rust source mapping
+    └── 01_COVERAGE.md                   # deep check: covered vs missing
 ```
 
 Each numbered file keeps its number prefix, e.g.
@@ -75,7 +80,7 @@ from study_book.chapter_05_runtime.engine import Engine
 
 ## Run
 
-From `python_study/`:
+From the project root:
 
 ```bash
 python tools/check_dag.py
@@ -105,7 +110,9 @@ Chapter 04  generation     20-25   trie .. speculator
 Chapter 05  runtime        26-29   tokenizer, decoder, stream, engine
 ```
 
-See `docs/00_DAG.md` for the mapping to `crates/uzu-engine/src`.
+See `docs/00_DAG.md` for the mapping to `crates/uzu-engine/src`, and
+`docs/01_COVERAGE.md` for the deep check of what this port covers versus the
+upstream repository.
 
 ## Math notes
 
@@ -120,7 +127,7 @@ derivations for that part of the engine:
 | `chapter_03_model_blocks/` | RMSNorm, SwiGLU, RoPE, GQA, KV-cache memory, DeltaNet recurrence |
 | `chapter_04_generation/` | tree masks, sampling filters, DFlash, Weaver scoring, expected speedup |
 | `chapter_05_runtime/` | decoder equations, prefill/decode cost, speculative acceptance |
-| `docs/` | notation, shape conventions, DAG definition |
+| `docs/` | notation, shape conventions, DAG definition, upstream coverage |
 | `tools/` | DAG check algorithm, demo math |
 
 Conventions used everywhere:
@@ -141,3 +148,9 @@ Conventions used everywhere:
 - The live random-weight draft rarely matches the target, so live speculation
   accepts 0 draft tokens. The synthetic verification demo in `run_demo.py`
   shows the accept path producing 3 draft tokens + 1 bonus token.
+
+## References
+
+- uzu (upstream engine): <https://github.com/trymirai/uzu>
+- uzu docs: <https://docs.trymirai.com>
+- lalamo (model export): <https://github.com/trymirai/lalamo>

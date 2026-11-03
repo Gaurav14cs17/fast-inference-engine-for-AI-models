@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Run the Python study port.
 
-    cd python_study
-    python tools/run_demo.py
+    python tools/run_demo.py        # from the project root
 """
 
 from __future__ import annotations

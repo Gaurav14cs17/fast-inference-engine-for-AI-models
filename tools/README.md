@@ -94,7 +94,7 @@ usually zero; real DFlash weights are trained to match.
 ## Run
 
 ```bash
-cd python_study
+# from the project root
 python tools/check_dag.py
 python tools/run_demo.py
 ```

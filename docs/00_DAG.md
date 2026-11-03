@@ -64,6 +64,10 @@ chapter_05_runtime/29_engine.py    -> study_book.chapter_05_runtime.engine
 
 ## Mapping to the Rust source
 
+All paths below are relative to `crates/uzu-engine/src` in the upstream
+repository: **<https://github.com/trymirai/uzu>**. (What is *not* mapped here
+is listed in `../docs/01_COVERAGE.md`.)
+
 | # | Python file | Mirrors |
 |---|---|---|
 | 01 | `chapter_01_foundations/01_dtypes.py` | `src/data_type.rs` |
@@ -134,4 +138,5 @@ GenerationStream (28)
   sees the whole tree with an ancestor mask, the same idea as
   `ancestor_attention.metal`.
 - **Weights**: the demo uses random weights; real weights come from a `lalamo`
-  converted safetensors file.
+  converted safetensors file (see [trymirai/lalamo](https://github.com/trymirai/lalamo)
+  and the upstream engine at <https://github.com/trymirai/uzu>).
