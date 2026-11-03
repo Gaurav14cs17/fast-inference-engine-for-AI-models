@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uzu-study"
+version = "0.1.0"
+description = "A NumPy study port of the uzu inference engine architecture"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26"]
+
+[project.optional-dependencies]
+safetensors = ["safetensors>=0.4"]
+
+[tool.setuptools.packages.find]
+include = ["study_book*"]
+
+[tool.setuptools]
+include-package-data = true
