@@ -1,6 +1,6 @@
-# uzu — Python study book
+# fast-inference-engine-for-AI-models
 
-A compact NumPy reimplementation of the **uzu** inference engine architecture,
+A compact NumPy reimplementation of the **fast-inference-engine-for-AI-models** inference engine architecture,
 organized as a numbered study book. It is meant for studying the code, not for
 production inference.
 
